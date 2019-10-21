@@ -1,4 +1,4 @@
-# JavaScript 工具函数大全（新）
+# JavaScript 工具函数大全
 > This is some utils of javascript
 
 ## 前言
@@ -14,3 +14,4 @@
 - 第六部分：浏览器操作及其它
 
 **本文工具函数的命名非常值得借鉴**
+
