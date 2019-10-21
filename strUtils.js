@@ -1,0 +1,75 @@
+/*
+ * @Description: 3. 第三部分：字符串相关工具函数 
+ * @Author: james.zhang 
+ * @Date: 2019-10-21 21:43:49 
+ * @Last Modified by: james.zhang
+ * @Last Modified time: 2019-10-21 22:25:42
+ */
+// 1.byteSize：返回字符串的字节长度
+const byteSize = str => new Blob([str]).size;
+console.log(byteSize('😀')); // 4
+console.log(byteSize('Hello World')); // 11
+
+// 2. capitalize：首字母大写
+// 字符串解构成数组
+const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('')
+console.log(capitalize('fooBar')) // FooBar
+console.log(capitalize('fooBar', true)) // FooBar
+
+// 3. capitalizeEveryWord：每个单词首字母大写
+// \b 单词边界，只要字符的左右两边有一边有空白字符则为单词边界
+const capitalizeEveryWord = (str = '') => str.replace(/\b[a-z]/g, char => char.toUpperCase())
+console.log(capitalizeEveryWord('hello world!')) // Hello World!
+
+// 4. decapitalize：首字母小写
+const decapitalize = ([first, ...rest]) => first.toLowerCase() + rest.join('')
+console.log(decapitalize('FooBar')) // fooBar
+
+// 5. luhnCheck：银行卡号码校验（luhn算法）
+// Luhn算法的实现，用于验证各种标识号，例如信用卡号，IMEI号，国家提供商标识号等。
+// 与String.prototype.split('')结合使用，以获取数字数组。获得最后一个数字。实施luhn算法。如果被整除，则返回，否则返回。
+
+const luhnCheck = num => {
+    let arr = (num + '')
+      .split('')
+      .reverse()
+      .map(x => parseInt(x));
+    let lastDigit = arr.splice(0, 1)[0];
+    let sum = arr.reduce((acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val * 2) % 9) || 9), 0);
+    sum += lastDigit;
+    return sum % 10 === 0;
+  };
+console.log(luhnCheck('4485275742308327')); // true 
+
+/* 补充：银行卡号码的校验规则：
+关于luhn算法，可以参考以下文章：
+
+银行卡号码校验算法（Luhn算法，又叫模10算法）
+
+银行卡号码的校验采用Luhn算法，校验过程大致如下：
+
+从右到左给卡号字符串编号，最右边第一位是1，最右边第二位是2，最右边第三位是3….
+
+从右向左遍历，对每一位字符t执行第三个步骤，并将每一位的计算结果相加得到一个数s。
+
+对每一位的计算规则：如果这一位是奇数位，则返回t本身，如果是偶数位，则先将t乘以2得到一个数n，如果n是一位数（小于10），直接返回n，否则将n的个位数和十位数相加返回。
+
+如果s能够整除10，则此号码有效，否则号码无效。
+
+因为最终的结果会对10取余来判断是否能够整除10，所以又叫做模10算法。
+当然，还是库比较香: bankcardinfo */
+
+// 6. splitLines：将多行字符串拆分为行数组。
+// 使用String.prototype.split()和正则表达式匹配换行符并创建一个数组
+
+const splitLines = str => str.split(/\r?\n/)
+console.log(splitLines('This\nis a\nmultiline\nstring.\n')) // [ 'This', 'is a', 'multiline', 'string.', '' ]
+
+// 7. stripHTMLTags：删除字符串中的HTMl标签
+// 从字符串中删除HTML / XML标签。
+
+// 使用正则表达式从字符串中删除HTML / XML 标记。
+
+const stripHTMLTags = str => str.replace(/<[^>]*>/g, '')
+console.log(stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>')) // lorem ipsum
+
