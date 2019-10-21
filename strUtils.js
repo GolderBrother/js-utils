@@ -3,7 +3,7 @@
  * @Author: james.zhang 
  * @Date: 2019-10-21 21:43:49 
  * @Last Modified by: james.zhang
- * @Last Modified time: 2019-10-21 23:19:55
+ * @Last Modified time: 2019-10-21 23:21:25
  */
 // 1.byteSize：返回字符串的字节长度
 const byteSize = str => new Blob([str]).size;
