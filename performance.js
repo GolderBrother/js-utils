@@ -51,7 +51,7 @@ function transform(type, val) {
     return transformMap.get(type) || '';
 }
 // 性能监控启动模块
-function performanceMonitor() {
+export function performanceMonitor() {
     const [tcpTimeMsg, responseTimeMsg, memorySizeMsg] = [transform('TCPTime', calc('getTCPTime', '0.001s')), transform('ResponseTime', calc('getResponseTime', '0.001s')), transform('MemorySize', calc('getMemorySize', 10))];
     window.onload = function () {
         const domTimeMsg = transform('DOMTime', calc('getDOMTime', '1s'));
@@ -59,4 +59,6 @@ function performanceMonitor() {
     }
     console.log(tcpTimeMsg, responseTimeMsg, memorySizeMsg);
 }
+
+// use 
 performanceMonitor();
